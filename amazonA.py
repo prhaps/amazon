@@ -52,14 +52,26 @@ def review():
     a = int(result)
     a = a-1
     for i in range(a):
-        shoplist = driver.find_element(By.XPATH,'//*[@id="search"]/div[1]/div[1]/div/span[1]/div[1]/div')
-        divs = shoplist.find_elements(By.XPATH, '//div[@data-component-id]')
-        time.sleep(3)
-        for div in divs:
+        urls = html.xpath('//a[@class="a-link-normal s-no-outline"]/@href')
+        title = html.xpath('//span[@class="a-size-base-plus a-color-base a-text-normal"]/text()')
+        pingfen = html.xpath('//span[@class="a-icon-alt"]/text()')
+        rating_value = html.xpath('//span[@class="a-size-base"]/text()')
+        price = html.xpath('//span[@class="a-offscreen"]/text()')
+        for i in range(0, len(urls)):
+            try:
+                print(title[i], pingfen[i], rating_value[i], urls[i], price[i])
+                list = [title[i], pingfen[i], rating_value[i], urls[i], price[i]]
+                all_list.append(list)
+            except Exception as e:
+                pass
+        headers = ["标题", '评分', '评论数', '链接', '价格']
+        with open('amazon.csv', 'w', newline='', encoding='utf-8') as f:
+            f_csv = csv.writer(f)
+            f_csv.writerow(headers)
+            f_csv.writerows(all_list)
         forward = driver.find_element(By.XPATH, '(//*[@id="search"]/div[1]/div[1]/div/span[1]/div[1]//div/div/span/a)[last()]')
         forward.click()
         time.sleep(5)
-
 
 if __name__ == '__main__':
     search('Bear glasses')
