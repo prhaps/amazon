@@ -1,9 +1,14 @@
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from lxml import etree
 import time
+import csv
 
 driver = webdriver.Edge()
+text = driver.page_source
+html = etree.HTML(text)
+all_list = []
 def search(keywords):
     driver.get('https://www.amazon.com/')
     change_address('20001')
