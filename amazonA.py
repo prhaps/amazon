@@ -58,7 +58,7 @@ def review():
     a = a-1
     for i in range(a):
         urls = html.xpath('//a[@class="a-link-normal s-no-outline"]/@href')
-        title = html.xpath('//span[@class="a-size-base-plus a-color-base a-text-normal"]/text()')
+        title = html.xpath('.//a[@target="_blank"]/span[@dir="auto"]/text()')
         pingfen = html.xpath('//span[@class="a-icon-alt"]/text()')
         rating_value = html.xpath('//span[@class="a-size-base"]/text()')
         price = html.xpath('//span[@class="a-offscreen"]/text()')
